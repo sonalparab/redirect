@@ -1,0 +1,11 @@
+{% extends "form.html" %}
+
+{% block content1 %}
+<h1>
+Hello, {{username}}! <br>
+</h1>
+<br>
+<form method="POST" action="/logout/">
+  <input type="submit" value="Logout">
+</form>
+{% endblock %}

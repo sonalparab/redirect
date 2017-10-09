@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title> Form </title>
+  </head>
+  <body>
+    {% block content1 %}
+    <form method="POST" action="/output/">
+      <h2>Enter your username</h2>
+      <input type="text" name="name"><br><br>
+      <h2>Enter your password</h2>
+      <input type="text" name="pass"><br><br>
+      <input type="submit">
+    </form>
+    {% endblock %}
+  </body>
+</html>
