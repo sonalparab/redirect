@@ -9,14 +9,18 @@ app.secret_key = "this is totally secret"
 @app.route('/',methods = ['POST','GET'])
 def root():
     if 'username' in session:
-        return render_template('welcome.html', username= session['username'])
+        return redirect(url_for('welcome'))
     else:
         return render_template('form.html')
 
 @app.route('/output/', methods = ['POST','GET'])
 def welcome():
-    username = request.form['name']
-    password = request.form['pass']
+    if 'username' in session:
+        username = session['username']
+        password = dict[username]
+    else:
+        username = request.form['name']
+        password = request.form['pass']
     if username in dict:
         if dict[username] == password:
             session['username'] = username
@@ -29,7 +33,7 @@ def welcome():
 @app.route('/logout/',methods = ['POST','GET'])
 def logout():
     session.pop('username')
-    return render_template('logout.html')
+    return redirect(url_for('root'))
     
 if __name__ == '__main__':
     app.debug = True
