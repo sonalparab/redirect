@@ -4,6 +4,12 @@
     <title> Form </title>
   </head>
   <body>
+    {% set messages = get_flashed_messages() %}
+    {% for message in messages %}
+    <center>
+      <h1> {{message}} </h1>
+    </center>
+    {% endfor %}
     {% block content1 %}
     <h1> LOGIN </h1>
     <form method="POST" action="/output/">

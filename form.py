@@ -1,4 +1,4 @@
-from flask import Flask,render_template, request, session, redirect, url_for
+from flask import Flask,render_template,request,session,redirect,url_for,flash
 
 app = Flask(__name__)
 
@@ -16,23 +16,26 @@ def root():
 @app.route('/output/', methods = ['POST','GET'])
 def welcome():
     if 'username' in session:
-        username = session['username']
-        password = dict[username]
+        return render_template('welcome.html',username=session['username'])
     else:
         username = request.form['name']
         password = request.form['pass']
     if username in dict:
         if dict[username] == password:
             session['username'] = username
-            return render_template('welcome.html', username=username)
+            flash('Successful login')
+            return redirect(url_for('welcome'))
     if username in dict:
-        return render_template('error.html',bad='password')
+        flash('Bad password')
+        return redirect(url_for('root'))
     else:
-        return render_template('error.html',bad='username')
+        flash('Bad username')
+        return redirect(url_for('root'))
 
 @app.route('/logout/',methods = ['POST','GET'])
 def logout():
-    session.pop('username')
+    username = session.pop('username')
+    flash(username + ' has successfully logged out')
     return redirect(url_for('root'))
     
 if __name__ == '__main__':
